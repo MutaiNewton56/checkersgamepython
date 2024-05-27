@@ -1,5 +1,5 @@
 					**Checkers** 
-Checkers is a classic two-player board game. It is a strategy game that requires players to move their pieces across the board, capturing their opponent's pieces and ultimately trying to reach the other end of the board with one of their pieces to become a king. The  goal is to provide an overview of the game, breaking it down into several classes that work together to provide the game's functionality.
+Checkers is a classic two-player board game. It is a strategy game that requires players to move their pieces across the board, capturing their opponent's pieces and ultimately trying to reach the other end of the board with one of their pieces to become a king. The  goal is to provide an overview of the game, breaking it down into several classes that work together to provide the game's functionality. We will be using Python for this project.
 
  **MVPS**
  1. A user should be able to see the board on the console.
