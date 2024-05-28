@@ -22,7 +22,7 @@ Checkers is a classic two-player board game. It is a strategy game that requires
 
 **collaborations**
 Ms. Alhandra Mohammed
-Mr. Micahel Randa
+Mr. Michael Randa
 Mr. Fredrick Mwai
 Mr. Samson Mubeya
 Mr. Newton Mutai
