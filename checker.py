@@ -1,5 +1,7 @@
 from tabulate import tabulate
 import random
+
+
 board=[
     ["-","a","-","b","-","c","-","d"],
     ["e","-","f","-","g","-","h","-"],
