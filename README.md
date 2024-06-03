@@ -26,3 +26,6 @@ Mr. Michael Randa
 Mr. Fredrick Mwai
 Mr. Samson Mubeya
 Mr. Newton Mutai
+
+**Requirements**
+Please install Tabulate from pip to help you show the table in the terminal window
