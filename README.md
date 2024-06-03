@@ -25,4 +25,4 @@ Ms. Alhandra Mohammed
 Mr. Michael Randa
 Mr. Fredrick Mwai
 Mr. Samson Mubeya
-Mr. Newton Mutai
+Mr. Newton Kipkurui
