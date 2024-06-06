@@ -25,4 +25,22 @@ Ms. Alhandra Mohammed
 Mr. Michael Randa
 Mr. Fredrick Mwai
 Mr. Samson Mubeya
-Mr. Newton Mutai
+Mr. Newton Kipkurui
+
+
+**Requirements**
+Please install Tabulate from pip to help you show the table in the terminal window
+
+
+**accomplished so far**
+1. Presented the board on terminal for the user to see the positions
+2. Take user input
+3. User can select player to move
+4. player can move to the next line
+5. 
+
+**pending**
+1. a while loop to make the terminal not to kill or exit(to update the board==Mwai)
+2. right moves for players
+3. player cannot move outise the board or outside its array
+4. make the the opponent/computer players numerals
