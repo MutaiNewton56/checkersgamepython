@@ -24,7 +24,7 @@ def isvalidmove(character,move):
     currentline=0
     indexofplayer=0
     intentposition=0
-   
+    
    
 
     for i in range(8):
@@ -37,31 +37,29 @@ def isvalidmove(character,move):
 
               
             if move =="right":
-               #intentline=i+1
                intentposition=indexofplayer+1
                
 
-   #  print(board[intentline])
-   #  print(f"current line is {currentline}")
-   #  print(f"index inside isvalid {indexofplayer}")
-   #  print(f"intentline inside isvalid {intentline}")
-   #  print(f"intentposition inside isvalid {intentposition}")
-   #  print (f"inside isvalid the index {indexofplayer}of player{character} is line{intentline}")
+      #  print(board[intentline])
+      #  print(f"current line is {currentline}")
+      #  print(f"index inside isvalid {indexofplayer}")
+      #  print(f"intentline inside isvalid {intentline}")
+      #  print(f"intentposition inside isvalid {intentposition}")
+      #  print (f"inside isvalid the index {indexofplayer}of player{character} is line{intentline}")
 
 
     
     #to check if move is within the board 
-    #there is a bug here
+    
     if not (0 <= intentline <= 7) or not (0 <= intentposition <= 7):
        
        print(f"player {character} can not move {move} BECAUSE is OUTISEDE BOUNDS")
+
+
+       #if this condition is satisfied.. ie the player move is within the board we check the other rules
     else:
       
-         #the next line
-         # print (f"{board[intentline][indexofplayer-1]} currently occupies this position")
-
-         #the next next line
-         #print (f"hello {board[intentline-1][indexofplayer-2]}")
+         
 
          
          #to check if the move player wants to move is occupied by a collegue player
@@ -80,7 +78,7 @@ def isvalidmove(character,move):
 
             print(f"player {character} has captured {board[intentline][intentposition]} to {move}") 
          
-
+            #to remove and replace the captured player and move the player forward two times
             board[intentline][intentposition]=0
             board[intentline-1][intentposition-1]=character
             board[currentline][indexofplayer]=0
