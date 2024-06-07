@@ -1,0 +1,31 @@
+columns = [
+        ['-','a','-','b','-','c','-','d'],
+        ['e','-','f','-','g','-','h','-'],
+        ['-','i','-','j','-','k','-','l'],
+        [0, "-", 0, "-", 0, "-", 0, "-"],
+        ["-", 0, "-", 0, "-", 0, "-", 0],
+        ["ii", "-", "jj", "-", "kk", "-", "ll", "-"],
+        ["-", "ee", "-", "ff", "-", "gg", "-", "hh"],
+        ["aa", "-", "bb", "-", "cc", "-", "dd", "-"]
+    ]
+def findplayerfunction(character):
+    # Define the columns as a 2D list
+    
+
+    # Iterate through each column
+    for col_index, column in enumerate(columns):
+        # Iterate through each element in the column
+        for row_index, item in enumerate(column):
+            if item == character:
+                return (col_index, row_index)
+    
+    # Return None if the character is not found
+    return None
+
+# Example usage
+print(columns)
+position = findplayerfunction('j')
+if position:
+    print(f"Character found at column {position[0]} and row {position[1]}")
+else:
+    print("Character not found")
