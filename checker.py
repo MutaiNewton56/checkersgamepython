@@ -5,9 +5,9 @@ import random
 board=[
     ["-","a","-","b","-","c","-","d"],
     ["e","-","f","-","g","-","h","-"],
-    ["-","i","-","j","-","k","-","l"],
+    ["-","i","-","j","-",0,"-","l"],
     [0, "-",0, "-",0, "-",0, "-"],
-    [ "-",0, "-",0, "-",0, "-",0],
+    [ "-",0, "-",0, "-","k", "-",0],
     ["ii", "-","jj", "-","kk", "-","ll", "-"],
     [ "-","ee", "-","ff", "-","gg", "-","hh"],
     ["aa", "-","bb", "-","cc", "-","dd", "-"],
@@ -21,6 +21,7 @@ def isvalidmove(character,move):
     userplayers=["aa", "bb", "cc", "dd", "ee", "ff", "gg", "hh", "ii","jj", "kk", "ll"]
 
     intentline=0
+    currentline=0
     indexofplayer=0
     intentposition=0
    
@@ -28,59 +29,63 @@ def isvalidmove(character,move):
 
     for i in range(8):
       if character in board[i]: 
+            currentline=i
             intentline=i-1
             indexofplayer=board[i].index(character)
             if move=="left":
-               intentposition=board[intentline].index(indexofplayer-1)
+               intentposition=(indexofplayer-1)
 
               
             if move =="right":
                #intentline=i+1
-               intentposition=board[intentline].index(indexofplayer+1)
+               intentposition=indexofplayer+1
                
 
-    print(board[intentline])
-    print(f"index inside isvalid {indexofplayer}")
-    print(f"intentline inside isvalid {intentline}")
-    print(f"intentposition inside isvalid {intentposition}")
+   #  print(board[intentline])
+   #  print(f"current line is {currentline}")
+   #  print(f"index inside isvalid {indexofplayer}")
+   #  print(f"intentline inside isvalid {intentline}")
+   #  print(f"intentposition inside isvalid {intentposition}")
+   #  print (f"inside isvalid the index {indexofplayer}of player{character} is line{intentline}")
 
 
-
-
-    print (f"inside isvalid the index {indexofplayer}of player{character} is line{intentline}")
-
-   #the next line
-   # print (f"{board[intentline][indexofplayer-1]} currently occupies this position")
-
-    #the next next line
-    #print (f"hello {board[intentline-1][indexofplayer-2]}")
-
-   
-    #to check if the move player wants to move is occupied by a collegue player
-    if board[intentline][intentposition] in userplayers:
-       
-       print(f"player {character} can not move to {move} because {board[intentline][intentposition]} is there ")
-       
-
+    
     #to check if move is within the board 
     #there is a bug here
-    elif not (0 <= intentline <= 7) or not (0 <= intentposition <= 7):
+    if not (0 <= intentline <= 7) or not (0 <= intentposition <= 7):
        
-       print(f"player {character} can not move to {move} BECAUSE {board[intentline][intentposition]} is OUTISEDE BOUNDS")
+       print(f"player {character} can not move {move} BECAUSE is OUTISEDE BOUNDS")
+    else:
       
-    #to check if the move player wants to move is empty 
-    elif board[intentline][intentposition] ==0 and not (0 <= intentline <= 7) or not (0 <= intentposition <= 7):
-       
-       print(f"player {character} can move to {move} because it is empty")
+         #the next line
+         # print (f"{board[intentline][indexofplayer-1]} currently occupies this position")
 
-    #to check potential capture move
-    elif board[intentline][intentposition] in opponentplayers and board[intentline-1][intentposition-1] == 0:
-       
-       board[intentline][intentposition]=0
-       board[intentline-1][intentposition-1]=character
+         #the next next line
+         #print (f"hello {board[intentline-1][indexofplayer-2]}")
+
+         
+         #to check if the move player wants to move is occupied by a collegue player
+         if board[intentline][intentposition] in userplayers:
+            
+            print(f"player {character} can not move to {move} because {board[intentline][intentposition]} is there ")
+            
+
+         #to check if the move player wants to move is empty 
+         elif board[intentline][intentposition] ==0 and not (0 <= intentline <= 7) or not (0 <= intentposition <= 7):
+            
+            print(f"player {character} can move to {move} because it is empty")
+
+         #to check potential capture move
+         elif board[intentline][intentposition] in opponentplayers and board[intentline-1][intentposition-1] == 0:
+
+            print(f"player {character} has captured {board[intentline][intentposition]} to {move}") 
+         
+
+            board[intentline][intentposition]=0
+            board[intentline-1][intentposition-1]=character
+            board[currentline][indexofplayer]=0
 
 
-       print(f"player {character} can capture {board[intentline][intentposition]} to {move}") 
 
 
 
