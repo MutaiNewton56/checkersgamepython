@@ -1,3 +1,5 @@
+import random
+
 class Checkers:
     def __init__(self):
         self.board = [[' ' for _ in range(8)] for _ in range(8)]
@@ -89,6 +91,48 @@ def main():
             continue
         if captured_piece_pos:
             print(f"Piece captured at position {captured_piece_pos} and removed.")    
+
+ # Check for win condition
+        x_count = sum(row.count('p') for row in game.board)
+        o_count = sum(row.count('c') for row in game.board)
+        if x_count == 0:
+            print("Congratulations! 'c' wins!")
+            break
+        elif o_count == 0:
+            print("Congratulations! 'p' wins!")
+            break
+
+ # Computer's move
+        available_moves = []
+        for row in range(8):
+            for col in range(8):
+                if game.board[row][col] == 'c':
+                    if row + 1 < 8 and col - 1 >= 0 and game.board[row + 1][col - 1] == ' ':
+                        available_moves.append((row, col, row + 1, col - 1))
+                    if row + 1 < 8 and col + 1 < 8 and game.board[row + 1][col + 1] == ' ':
+                        available_moves.append((row, col, row + 1, col + 1))
+                    # Add jump moves
+                    if row + 2 < 8 and col - 2 >= 0 and game.board[row + 1][col - 1] == 'p' and game.board[row + 2][col - 2] == ' ':
+                        available_moves.append((row, col, row + 2, col - 2))
+                    if row + 2 < 8 and col + 2 < 8 and game.board[row + 1][col + 1] == 'p' and game.board[row + 2][col + 2] == ' ':
+                        available_moves.append((row, col, row + 2, col + 2))
+        if available_moves:
+            capture_moves = [move for move in available_moves if abs(move[0] - move[2]) == 2]
+            if capture_moves:
+                comp_move = random.choice(capture_moves)
+            else:
+                comp_move = random.choice(available_moves)
+            game.move_piece(comp_move[0], comp_move[1], comp_move[2], comp_move[3], 'c')
+            if abs(comp_move[0] - comp_move[2]) == 2:
+                captured_piece_row = (comp_move[0] + comp_move[2]) // 2
+                captured_piece_col = (comp_move[1] + comp_move[3]) // 2
+                print(f"Computer captured a piece at position ({captured_piece_row}, {captured_piece_col}) and moved from ({comp_move[0]}, {comp_move[1]}) to ({comp_move[2]}, {comp_move[3]}).")
+            else:
+                print(f"Computer moved from ({comp_move[0]}, {comp_move[1]}) to ({comp_move[2]}, {comp_move[3]}).")
+        else:
+            print("No available moves for the computer.")
+            break
+
 
 if __name__ == "__main__":
    main()
