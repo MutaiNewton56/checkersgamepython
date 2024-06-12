@@ -29,29 +29,37 @@ class Checkers:
     
     def move_piece(self, start_row, start_col, end_row, end_col, player):
         piece = self.board[start_row][start_col]
-         # Initialize captured piece position
+        captured_piece_pos = None  # Initialize captured piece position
         if piece != player:
             print(f"Invalid move. You can only move '{player}' pieces.")
-            return False, 
+            return False, captured_piece_pos
         if piece == ' ':
             print("No piece at starting position.")
-            return False
+            return False, captured_piece_pos
         if player == 'p' and end_row > start_row:  # Player 'p' moves upwards
             print("Invalid move. Only move upwards.")
-            return False
+            return False, captured_piece_pos
         if player == 'c' and end_row < start_row:  # Computer 'c' moves downwards
             print("Invalid move. Only move downwards.")
-            return False
+            return False, captured_piece_pos
         if abs(start_row - end_row) != abs(start_col - end_col):
             print("Invalid move. Moves must be diagonal.")
-            return False
+            return False, captured_piece_pos
         if abs(start_row - end_row) > 2:
             print("Invalid move. Can only move one or two spaces.")
-            return False, 
+            return False, captured_piece_pos
+        if abs(start_row - end_row) == 2:
+            mid_row = (start_row + end_row) // 2
+            mid_col = (start_col + end_col) // 2
+            if self.board[mid_row][mid_col] == ' ':
+                print("Invalid move. Must jump over opponent's piece.")
+                return False, captured_piece_pos
+            captured_piece_pos = (mid_row, mid_col)  # Set captured piece position
+            self.board[mid_row][mid_col] = ' '
         self.board[end_row][end_col] = piece
         self.board[start_row][start_col] = ' '
         print("Valid move!")
-        return True,   # Return captured piece position
+        return True, captured_piece_pos  # Return captured piece position
 
 if __name__ == "__main__":
     board = Checkers()
