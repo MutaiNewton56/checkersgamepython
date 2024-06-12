@@ -60,8 +60,35 @@ class Checkers:
         self.board[start_row][start_col] = ' '
         print("Valid move!")
         return True, captured_piece_pos  # Return captured piece position
+    
+def main():
+    game = Checkers()
+    print("Welcome to Checkers!")
+    print("To move a piece, enter the starting position and then the ending position.")
+    print("For example: '2 1 3 2' moves a piece from row 2, col 1 to row 3, col 2.")
+    input("Press Enter to start the game...")
+    while True:
+        game.print_board()
+        start_input = input("Enter start position (row col): ").split()
+        end_input = input("Enter end position (row col): ").split()
+        if len(start_input) != 2 or len(end_input) != 2:
+            print("Invalid input. Please enter row and column separated by space.")
+            continue
+        try:
+            start_row, start_col = map(int, start_input)
+            end_row, end_col = map(int, end_input)
+        except ValueError:
+            print("Invalid input. Please enter integers.")
+            continue
+        if not (0 <= start_row < 8 and 0 <= start_col < 8 and 0 <= end_row < 8 and 0 <= end_col < 8):
+            print("Invalid input. Position out of range.")
+            continue
+        valid_move, captured_piece_pos = game.move_piece(start_row, start_col, end_row, end_col, 'p')
+        if not valid_move:
+            print("Invalid move. Please try again.")
+            continue
+        if captured_piece_pos:
+            print(f"Piece captured at position {captured_piece_pos} and removed.")    
 
 if __name__ == "__main__":
-    board = Checkers()
-    board.print_board()
-    board.move_piece(5,2,4,1,"p")
+   main()
