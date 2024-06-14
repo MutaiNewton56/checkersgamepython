@@ -26,3 +26,25 @@ Mr. Michael Randa
 Mr. Fredrick Mwai
 Mr. Samson Mubeya
 Mr. Newton Kipkurui
+
+
+**Requirements**
+Please install Tabulate from pip to help you show the table in the terminal window
+
+
+**accomplished so far**
+1. Presented the board on terminal for the user to see the positions
+2. Take user input
+3. User can select player to move
+4. player can move to the next line
+5. a while loop to make the terminal not to kill or exit
+6. player cannot move outise the board or outside its array
+7. Computer is able to play
+
+**pending**
+1. colors
+2. kings' crowning
+3. kings' moves
+4. when pressing 'Q' it should quit the game 
+5. In the middling of the game, if you press 's' it should output a surrender message and restart the game
+6. an option for mandatory capture, to choose to capture or not.
