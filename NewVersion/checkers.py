@@ -25,30 +25,38 @@ class Checkers:
         for row in range(8):
             print(row, end="|")
             for col in range(8):
-                print(f" {self.board[row][col]} |", end="")
+                piece = self.board[row][col]
+                print(f" {piece} |", end="")
             print()
             print(" +---+---+---+---+---+---+---+---+")
-    
+        player_pieces = sum(row.count('p') + row.count('K') for row in self.board)
+        computer_pieces = sum(row.count('c') + row.count('Q') for row in self.board)
+        print(f"Player Pieces Left: {player_pieces}")
+        print(f"Computer Pieces Left: {computer_pieces}")
+
+    def king(self, piece):
+        return piece in ['K', 'Q']
+
     def move_piece(self, start_row, start_col, end_row, end_col, player):
         piece = self.board[start_row][start_col]
         captured_piece_pos = None  # Initialize captured piece position
-        if piece != player:
-            print(f"Invalid move. You can only move '{player}' pieces.")
-            return False, captured_piece_pos
+
+        #This allows both the player and computer to move its kings'
+        if player == 'p':
+            if piece not in ['p', 'K']:
+                print(f"Invalid move. You can only move 'p' or 'K' pieces.")
+                return False, captured_piece_pos
+        elif player == 'c':
+            if piece not in ['c', 'Q']:
+                print(f"Invalid move. You can only move 'c' or 'Q' pieces.")
+                return False, captured_piece_pos
+
         if piece == ' ':
             print("No piece at starting position.")
             return False, captured_piece_pos
-<<<<<<< Updated upstream
-        if player == 'p' and end_row > start_row:  # Player 'p' moves upwards
-            print("Invalid move. Only move upwards.")
-            return False, captured_piece_pos
-        if player == 'c' and end_row < start_row:  # Computer 'c' moves downwards
-            print("Invalid move. Only move downwards.")
-            return False, captured_piece_pos
-=======
         #CANNOT MOVE TO OCCUPIED LOCATION
         if self.board[end_row][end_col] !=' ':
-            print("Invalid move. Cannot move to occupied location.")
+            print("Invalid move. Cannot move to occupied location😞😞.")
             return False, captured_piece_pos
 
         # Normal pieces move in one direction, kings can move in any direction
@@ -60,9 +68,8 @@ class Checkers:
                 print("Invalid move. Only move downwards.")
                 return False, captured_piece_pos
 
->>>>>>> Stashed changes
         if abs(start_row - end_row) != abs(start_col - end_col):
-            print("Invalid move. Moves must be diagonal.")
+            print("Invalid move. Moves must be diagonal😞.")
             return False, captured_piece_pos
         if abs(start_row - end_row) > 2:
             print("Invalid move. Can only move one or two spaces.")
@@ -81,33 +88,29 @@ class Checkers:
             self.board[mid_row][mid_col] = ' '
         self.board[end_row][end_col] = piece
         self.board[start_row][start_col] = ' '
+
+        # Check for promotion
+        if player == 'p' and end_row == 0:
+            self.board[end_row][end_col] = 'K'
+        elif player == 'c' and end_row == 7:
+            self.board[end_row][end_col] = 'Q'
+
         print("Valid move!")
         return True, captured_piece_pos  # Return captured piece position
-<<<<<<< Updated upstream
-    
-=======
 
     def quit_game(self):
         print("Game quit by user 😞.")  # Added quit game
         exit()
 
     def surrender_game(self):
-        print("Player Surrendered the game. 😞😞Buree kabisaa!!!")  # Added the surrender game
+        print("Player Surrendered the game.😞😞 Buree kabisaa!!!")  # Added the surrender game
         return True
 
->>>>>>> Stashed changes
 def main():
     game = Checkers()
     print("Welcome to Checkers!")
     print("To move a piece, enter the starting position and then the ending position.")
     print("For example: '2 1 3 2' moves a piece from row 2, col 1 to row 3, col 2.")
-<<<<<<< Updated upstream
-    input("Press Enter to start the game...")
-    while True:
-        game.print_board()
-        start_input = input("Enter start position (row col): ").split()
-        end_input = input("Enter end position (row col): ").split()
-=======
     print("Press 'Q' to quit the game.")
     print("Press 'S' to surrender and restart the game.")
     input("👋👋 Press Enter to start the game...")
@@ -133,7 +136,6 @@ def main():
             game = Checkers()  # Restart the game
             continue
 
->>>>>>> Stashed changes
         if len(start_input) != 2 or len(end_input) != 2:
             print("Invalid input. Please enter row and column separated by space.")
             continue
@@ -151,32 +153,41 @@ def main():
             print("Invalid move. Please try again.")
             continue
         if captured_piece_pos:
-            print(f"Piece captured at position {captured_piece_pos} and removed.")    
+            print(f"Piece captured at position {captured_piece_pos} and removed.")
 
- # Check for win condition
+        # Check for win condition
         x_count = sum(row.count('p') for row in game.board)
         o_count = sum(row.count('c') for row in game.board)
         if x_count == 0:
-            print("😄😄WISH ME Congratulations!")
+            print("😄😄WISH ME Congratulations!😄")
             break
         elif o_count == 0:
-            print("I WISH YOU Congratulations! 🎉🎉🎉!")
+            print("COMPUTER WON, 😄! 🎉🎉🎉!")
             break
 
- # Computer's move
+        # Computer's move
         available_moves = []
         for row in range(8):
             for col in range(8):
                 if game.board[row][col] == 'c':
+                    # Normal moves for 'c'
                     if row + 1 < 8 and col - 1 >= 0 and game.board[row + 1][col - 1] == ' ':
                         available_moves.append((row, col, row + 1, col - 1))
                     if row + 1 < 8 and col + 1 < 8 and game.board[row + 1][col + 1] == ' ':
                         available_moves.append((row, col, row + 1, col + 1))
-                    # Add jump moves
+                    # Jump moves for 'c'
                     if row + 2 < 8 and col - 2 >= 0 and game.board[row + 1][col - 1] == 'p' and game.board[row + 2][col - 2] == ' ':
                         available_moves.append((row, col, row + 2, col - 2))
                     if row + 2 < 8 and col + 2 < 8 and game.board[row + 1][col + 1] == 'p' and game.board[row + 2][col + 2] == ' ':
                         available_moves.append((row, col, row + 2, col + 2))
+                elif game.board[row][col] == 'Q':
+                    # Moves for 'Q' (king)
+                    for dr, dc in [(-1, -1), (-1, 1), (1, -1), (1, 1)]:
+                        if 0 <= row + dr < 8 and 0 <= col + dc < 8 and game.board[row + dr][col + dc] == ' ':
+                            available_moves.append((row, col, row + dr, col + dc))
+                        if 0 <= row + 2*dr < 8 and 0 <= col + 2*dc < 8 and game.board[row + dr][col + dc].lower() == 'p' and game.board[row + 2*dr][col + 2*dc] == ' ':
+                            available_moves.append((row, col, row + 2*dr, col + 2*dc))
+
         if available_moves:
             capture_moves = [move for move in available_moves if abs(move[0] - move[2]) == 2]
             if capture_moves:
@@ -191,13 +202,8 @@ def main():
             else:
                 print(f"Computer moved from ({comp_move[0]}, {comp_move[1]}) to ({comp_move[2]}, {comp_move[3]}).")
         else:
-<<<<<<< Updated upstream
-            print("No available moves for the computer.")
-=======
-            print("No available moves for the computer😊😊. YOU WIN!!!")
->>>>>>> Stashed changes
+            print("No available moves for the computer. YOU WIN!!!")
             break
 
-
 if __name__ == "__main__":
-   main()
+    main()
