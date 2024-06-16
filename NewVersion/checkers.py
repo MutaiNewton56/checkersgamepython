@@ -55,6 +55,11 @@ class Checkers:
             print("No piece at starting position.")
             return False, captured_piece_pos
 
+        #CANNOT MOVE TO OCCUPIED LOCATION
+        if self.board[end_row][end_col] !=' ':
+            print("Invalid move. Cannot move to occupied location😞😞.")
+            return False, captured_piece_pos
+
         # Normal pieces move in one direction, kings can move in any direction
         if not self.king(piece):
             if player == 'p' and end_row > start_row:  # Player 'p' moves upwards
@@ -65,7 +70,7 @@ class Checkers:
                 return False, captured_piece_pos
 
         if abs(start_row - end_row) != abs(start_col - end_col):
-            print("Invalid move. Moves must be diagonal.")
+            print("Invalid move. Moves must be diagonal😞.")
             return False, captured_piece_pos
         if abs(start_row - end_row) > 2:
             print("Invalid move. Can only move one or two spaces.")
@@ -75,6 +80,10 @@ class Checkers:
             mid_col = (start_col + end_col) // 2
             if self.board[mid_row][mid_col] == ' ':
                 print("Invalid move. Must jump over opponent's piece.")
+                return False, captured_piece_pos
+            #not to capture yourself
+            if self.board[mid_row][mid_col] == player:
+                print("invalid.Cannot capture your MATE 😞!!")
                 return False, captured_piece_pos
             captured_piece_pos = (mid_row, mid_col)  # Set captured piece position
             self.board[mid_row][mid_col] = ' '
@@ -96,7 +105,13 @@ class Checkers:
 
     def surrender_game(self):
         print("Player Surrendered the game. Buree kabisaa!!!")  # Added the surrender game
+        print("Game quit by user 😞.")  # Added quit game
         exit()
+
+    def surrender_game(self):
+        print("Player Surrendered the game.😞😞 Buree kabisaa!!!")  # Added the surrender game
+        return True
+
 
 def main():
     game = Checkers()
@@ -106,16 +121,28 @@ def main():
     print("Press 'Q' to quit the game.")
     print("Press 'S' to surrender and restart the game.")
     input("Press Enter to start the game...")
+    input("👋👋 Press Enter to start the game...")
+    print("happy to face you 😊")
     while True:
         game.print_board()
-        start_input = input("Enter start position (row col): ").split()
+        start_input = input("Enter start position (row col): ").strip().split()
         if start_input[0].lower() == 'q':
             game.quit_game()
+            break
         if start_input[0].lower() == 's':
             game.surrender_game()
+            game = Checkers()  # Restart the game
             continue
-        end_input = input("Enter end position (row col): ").split()
-
+        end_input = input("Enter end position (row col): ").strip().split()
+        if not end_input:
+            continue 
+        if end_input[0].lower() == 'q':
+            game.quit_game()
+            break
+        if end_input[0].lower() =='s':
+            game.surrender_game()
+            game = Checkers()  # Restart the game
+            continue
         if len(start_input) != 2 or len(end_input) != 2:
             print("Invalid input. Please enter row and column separated by space.")
             continue
@@ -139,10 +166,10 @@ def main():
         x_count = sum(row.count('p') for row in game.board)
         o_count = sum(row.count('c') for row in game.board)
         if x_count == 0:
-            print("Congratulations! 'c' wins!")
+            print("😄😄WISH ME Congratulations!😄")
             break
         elif o_count == 0:
-            print("Congratulations! 'p' wins!")
+            print("COMPUTER WON, 😄! 🎉🎉🎉!")
             break
 
         # Computer's move
@@ -178,7 +205,7 @@ def main():
             if abs(comp_move[0] - comp_move[2]) == 2:
                 captured_piece_row = (comp_move[0] + comp_move[2]) // 2
                 captured_piece_col = (comp_move[1] + comp_move[3]) // 2
-                print(f"Computer captured a piece at position ({captured_piece_row}, {captured_piece_col}) and moved from ({comp_move[0]}, {comp_move[1]}) to ({comp_move[2]}, {comp_move[3]}).")
+                print(f"😄I master Computer captured a piece at position ({captured_piece_row}, {captured_piece_col}) and moved from ({comp_move[0]}, {comp_move[1]}) to ({comp_move[2]}, {comp_move[3]}).")
             else:
                 print(f"Computer moved from ({comp_move[0]}, {comp_move[1]}) to ({comp_move[2]}, {comp_move[3]}).")
         else:
