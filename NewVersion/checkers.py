@@ -54,6 +54,7 @@ class Checkers:
         if piece == ' ':
             print("No piece at starting position.")
             return False, captured_piece_pos
+
         #CANNOT MOVE TO OCCUPIED LOCATION
         if self.board[end_row][end_col] !=' ':
             print("Invalid move. Cannot move to occupied location😞😞.")
@@ -99,12 +100,18 @@ class Checkers:
         return True, captured_piece_pos  # Return captured piece position
 
     def quit_game(self):
+        print("Game quit by user.")  # Added quit game
+        exit()
+
+    def surrender_game(self):
+        print("Player Surrendered the game. Buree kabisaa!!!")  # Added the surrender game
         print("Game quit by user 😞.")  # Added quit game
         exit()
 
     def surrender_game(self):
         print("Player Surrendered the game.😞😞 Buree kabisaa!!!")  # Added the surrender game
         return True
+
 
 def main():
     game = Checkers()
@@ -113,6 +120,7 @@ def main():
     print("For example: '2 1 3 2' moves a piece from row 2, col 1 to row 3, col 2.")
     print("Press 'Q' to quit the game.")
     print("Press 'S' to surrender and restart the game.")
+    input("Press Enter to start the game...")
     input("👋👋 Press Enter to start the game...")
     print("happy to face you 😊")
     while True:
@@ -135,7 +143,6 @@ def main():
             game.surrender_game()
             game = Checkers()  # Restart the game
             continue
-
         if len(start_input) != 2 or len(end_input) != 2:
             print("Invalid input. Please enter row and column separated by space.")
             continue
